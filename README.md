@@ -1,0 +1,2 @@
+# gachimon
+ DEEP DARK FANTASY
