@@ -23,6 +23,12 @@ namespace Assets.Scripts
 
     public class Character : MonoBehaviour
     {
+        private CharacterCombatPanel _combatPanel;
+
+        [SerializeField] private int _maxHealth = 100;
+
+        [SerializeField] private int _currentHealth;
+
         [SerializeField] private Side _side;
 
         [SerializeField] private int _initiative;
@@ -33,6 +39,8 @@ namespace Assets.Scripts
 
         [SerializeField] private GameObject _turnMark;
 
+        [SerializeField] private Transform _healthBarTransform;
+
         public bool ActivateTurnMark
         {
             set => this._turnMark.SetActive(value);
@@ -40,10 +48,22 @@ namespace Assets.Scripts
 
         public int Initiative => this._initiative;
 
+        public int MaxHealth
+        {
+            get => this._maxHealth;
+            set => this._maxHealth = value;
+        }
+
+        public int CurrentHealth
+        {
+            get => this._currentHealth;
+            set => this._currentHealth = value;
+        }
+
         public event Action<Character> OnCharacterSelected;
 
         private IPromiseTimer promiseTimer = new PromiseTimer();
-        void Update()
+        private void Update()
         {
             promiseTimer.Update(Time.deltaTime);
         }
@@ -68,6 +88,11 @@ namespace Assets.Scripts
             }
 
             return promiseTimer.WaitFor(this._animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
+        }
+
+        public void Init(RectTransform parent, Camera camera)
+        {
+            this._combatPanel = CharacterCombatPanel.Instantiate(this._healthBarTransform, parent, camera);
         }
 
         private void Awake()

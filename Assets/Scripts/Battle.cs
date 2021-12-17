@@ -20,6 +20,13 @@ namespace Assets.Scripts
         [SerializeField] private Transform[] _partySpawnPoints;
         [SerializeField] private Transform[] _enemySpawnPoints;
 
+
+        [Header("UI")]
+        [SerializeField]
+        private Camera _combatCamera;
+        [SerializeField]
+        private RectTransform _cameraRectTransform;
+
         private void Start()
         {
             SetupBattle(this._gachi);
@@ -43,11 +50,14 @@ namespace Assets.Scripts
 
             foreach (Character character in this._charactersInBattle)
             {
+                character.Init(this._cameraRectTransform, this._combatCamera);
+
                 character.OnCharacterSelected += character =>
                 {
                     if(character == this._currentCharacter)
                         return;
 
+                    //todo запилить блокер ввода на время анимации
                     this._currentCharacter.PlayAnimation(AnimationType.Attack)
                         .Done(() =>
                         {
