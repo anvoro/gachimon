@@ -11,8 +11,8 @@ namespace Assets.Scripts
     public class CharacterCombatPanel : MonoBehaviour
     {
         private static GameObject prefab;
-
-        private static GameObject Prefab => prefab ??= Resources.Load("CharacterCombatPanel") as GameObject;
+        
+        private static GameObject Prefab => prefab ?? (prefab = Resources.Load("CharacterCombatPanel") as GameObject);
 
         [SerializeField]
         private Slider _healthBar;

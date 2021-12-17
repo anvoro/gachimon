@@ -52,9 +52,9 @@ namespace Assets.Scripts
             {
                 character.Init(this._cameraRectTransform, this._combatCamera);
 
-                character.OnCharacterSelected += character =>
+                character.OnCharacterSelected += с =>
                 {
-                    if(character == this._currentCharacter)
+                    if(с == this._currentCharacter)
                         return;
 
                     //todo запилить блокер ввода на время анимации
@@ -91,7 +91,6 @@ namespace Assets.Scripts
         {
             if (this._currentCharacter != null)
             {
-                this._currentCharacter.PlayAnimation(AnimationType.Idle);
                 this._currentCharacter.ActivateTurnMark = false;
             }
 

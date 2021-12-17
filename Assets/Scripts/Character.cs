@@ -17,7 +17,6 @@ namespace Assets.Scripts
 
     public enum AnimationType
     {
-        Idle = 0,
         Attack = 1,
     }
 
@@ -27,7 +26,7 @@ namespace Assets.Scripts
 
         [SerializeField] private int _maxHealth = 100;
 
-        [SerializeField] private int _currentHealth;
+        private int _currentHealth;
 
         [SerializeField] private Side _side;
 
@@ -70,24 +69,20 @@ namespace Assets.Scripts
 
         public IPromise PlayAnimation(AnimationType animation)
         {
-            this._animator.SetBool("Idle", false);
-            this._animator.SetBool("Attack", false);
-
             switch (animation)
             {
-                case AnimationType.Idle:
-                    this._animator.SetBool("Idle", true);
-                    break;
-
                 case AnimationType.Attack:
-                    this._animator.SetBool("Attack", true);
+                    this._animator.SetTrigger("Attack");
                     break;
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(animation), animation, null);
             }
 
-            return promiseTimer.WaitFor(this._animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
+            float length = this._animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+            Debug.Log($"Anim length: {length}");
+
+            return promiseTimer.WaitFor(length);
         }
 
         public void Init(RectTransform parent, Camera camera)
@@ -98,6 +93,7 @@ namespace Assets.Scripts
         private void Awake()
         {
             this.ActivateTurnMark = false;
+            this._currentHealth = this._maxHealth;
         }
 
         private void OnMouseDown()
