@@ -30,19 +30,16 @@ namespace Assets.Scripts
 
         public event Action<CharacterModel> OnCharacterSelected;
 
-        public void Init(CharacterModel model)
-        {
-            this.ActivateTurnMark = false;
-
-            this._model = model;
-        }
-
         public IPromise PlayAnimation(AnimationType animation)
         {
             switch (animation)
             {
                 case AnimationType.Attack:
                     this._animator.SetTrigger("Attack");
+                    break;
+
+                case AnimationType.Defense:
+                    this._animator.SetTrigger("Defense");
                     break;
 
                 default:
@@ -54,9 +51,16 @@ namespace Assets.Scripts
             return Battle.WaitWithDelay(length);
         }
 
-        public void Init(RectTransform parent, Camera camera)
+        public void Init(CharacterModel model, RectTransform parent, Camera camera)
         {
+            this.ActivateTurnMark = false;
+
+            this._model = model;
+
             this._combatPanel = CharacterCombatPanel.Instantiate(this._healthBarTransform, parent, camera);
+            this._combatPanel.SetHealthBar(this._model, true);
+
+            this._model.OnHealthChange += () => this._combatPanel.SetHealthBar(this._model, false);
         }
 
         private void OnMouseDown()

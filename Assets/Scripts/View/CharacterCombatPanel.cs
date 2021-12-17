@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Assets.Scripts.Model;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,10 +13,10 @@ namespace Assets.Scripts
         [SerializeField]
         private Slider _healthBar;
 
-        public void SetHealthBar(CharacterView characterView, bool isSetMax)
+        public void SetHealthBar(CharacterModel character, bool isSetMax)
         {
-            int fullHealth = characterView.MaxHealth;
-            float hpPart = (float)characterView.CurrentHealth / fullHealth;
+            int fullHealth = character.MaxHealth;
+            float hpPart = (float)character.CurrentHealth / fullHealth;
 
             this._healthBar.value = isSetMax ? fullHealth : hpPart;
         }

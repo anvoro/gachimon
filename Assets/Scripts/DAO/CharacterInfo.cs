@@ -15,10 +15,11 @@ namespace Assets.Scripts.DAO
 
     public enum AnimationType
     {
-        Attack = 1,
+        Attack = 0,
+        Defense = 1,
     }
 
-    [CreateAssetMenu(menuName = "Characters")]
+    [CreateAssetMenu]
     public class CharacterInfo : ScriptableObject
     {
         public CharacterView View;
@@ -29,6 +30,6 @@ namespace Assets.Scripts.DAO
 
         public int Initiative = 1;
 
-        public List<Skill> Skills;
+        public List<SkillInfo> Skills;
     }
 }
