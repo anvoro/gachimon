@@ -17,10 +17,10 @@ namespace Assets.Scripts
         [SerializeField]
         private Slider _healthBar;
 
-        public void SetHealthBar(Character character, bool isSetMax)
+        public void SetHealthBar(CharacterView characterView, bool isSetMax)
         {
-            int fullHealth = character.MaxHealth;
-            float hpPart = (float)character.CurrentHealth / fullHealth;
+            int fullHealth = characterView.MaxHealth;
+            float hpPart = (float)characterView.CurrentHealth / fullHealth;
 
             this._healthBar.value = isSetMax ? fullHealth : hpPart;
         }

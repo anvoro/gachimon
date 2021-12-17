@@ -1,25 +1,38 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.DAO;
+using Assets.Scripts.Model;
 using RSG;
 using UnityEngine;
+using CharacterInfo = Assets.Scripts.DAO.CharacterInfo;
 
 namespace Assets.Scripts
 {
     public class Battle : MonoBehaviour
     {
-        private readonly List<Character> _charactersInBattle = new List<Character>();
+        public static readonly IPromiseTimer PromiseTimer = new PromiseTimer();
+        private void Update()
+        {
+            PromiseTimer.Update(Time.deltaTime);
+        }
+
+        public static IPromise WaitWithDelay(float duration)
+        {
+            return PromiseTimer.WaitFor(duration).Then(() => PromiseTimer.WaitFor(.2f));
+        }
+
+        private readonly List<CharacterView> _charactersInBattle = new List<CharacterView>();
         
-        private readonly Queue<Character> _characterActionQueue = new Queue<Character>();
+        private readonly Queue<CharacterView> _characterActionQueue = new Queue<CharacterView>();
 
-        private Character _currentCharacter;
+        private CharacterView _currentCharacterView;
 
-        [SerializeField] private List<Character> _gachi;
-        [SerializeField] private List<Character> _enemies;
+        [SerializeField] private List<CharacterInfo> _gachi;
+        [SerializeField] private List<CharacterInfo> _enemies;
 
         [SerializeField] private Transform[] _partySpawnPoints;
         [SerializeField] private Transform[] _enemySpawnPoints;
-
 
         [Header("UI")]
         [SerializeField]
@@ -32,33 +45,33 @@ namespace Assets.Scripts
             SetupBattle(this._gachi);
         }
 
-        private void SetupBattle(List<Character> party)
+        private void SetupBattle(List<CharacterModel> party)
         {
             this._charactersInBattle.Clear();
 
             for (int i = 0; i < party.Count; i++)
             {
-                Character gachiMan = Instantiate(party[i], this._partySpawnPoints[i]);
+                CharacterView gachiMan = Instantiate(party[i], this._partySpawnPoints[i]);
                 this._charactersInBattle.Add(gachiMan);
             }
 
             for (int i = 0; i < this._enemies.Count; i++)
             {
-                 Character enemy = Instantiate(this._enemies[i], this._enemySpawnPoints[i]);
+                 CharacterView enemy = Instantiate(this._enemies[i], this._enemySpawnPoints[i]);
                  this._charactersInBattle.Add(enemy);
             }
 
-            foreach (Character character in this._charactersInBattle)
+            foreach (CharacterView character in this._charactersInBattle)
             {
                 character.Init(this._cameraRectTransform, this._combatCamera);
 
                 character.OnCharacterSelected += с =>
                 {
-                    if(с == this._currentCharacter)
+                    if(с == this._currentCharacterView)
                         return;
 
                     //todo запилить блокер ввода на время анимации
-                    this._currentCharacter.PlayAnimation(AnimationType.Attack)
+                    this._currentCharacterView.PlayAnimation(AnimationType.Attack)
                         .Done(() =>
                         {
 
@@ -79,7 +92,7 @@ namespace Assets.Scripts
 
         private void BeginRound()
         {
-            foreach (Character c in this._charactersInBattle.OrderBy(_ => _.Initiative))
+            foreach (CharacterView c in this._charactersInBattle.OrderBy(_ => _.Initiative))
             {
                 this._characterActionQueue.Enqueue(c);
             }
@@ -89,14 +102,14 @@ namespace Assets.Scripts
 
         private void BeginTurn()
         {
-            if (this._currentCharacter != null)
+            if (this._currentCharacterView != null)
             {
-                this._currentCharacter.ActivateTurnMark = false;
+                this._currentCharacterView.ActivateTurnMark = false;
             }
 
-            this._currentCharacter = this._characterActionQueue.Dequeue();
+            this._currentCharacterView = this._characterActionQueue.Dequeue();
 
-            this._currentCharacter.ActivateTurnMark = true;
+            this._currentCharacterView.ActivateTurnMark = true;
         }
     }
 }
