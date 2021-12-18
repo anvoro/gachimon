@@ -165,7 +165,15 @@ namespace Assets.Scripts
                 Debug.Log("GO TO NEXT BATTLE");
                 battleIndex++;
 
-                SceneManager.LoadScene(2);
+                if (battleIndex >= this._battles.Count)
+                {
+                    battleIndex = 0;
+                    Fader.instance.ShowMessage("ÂÛ ÏÎÁÅÄÈËÈ", () => SceneManager.LoadScene(0));
+                }
+                else
+                {
+                    Fader.instance.GoFade(() => SceneManager.LoadScene(2));
+                }
             }
             else if (this._charactersInBattle.Count(_ => _.Side == Side.Player) == 0)
             {
