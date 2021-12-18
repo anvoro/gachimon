@@ -165,13 +165,14 @@ namespace Assets.Scripts
                 Debug.Log("GO TO NEXT BATTLE");
                 battleIndex++;
 
-                SceneManager.LoadScene(0);
+                SceneManager.LoadScene(2);
             }
             else if (this._charactersInBattle.Count(_ => _.Side == Side.Player) == 0)
             {
                 Debug.Log("GAME OVER");
                 battleIndex = 0;
-                SceneManager.LoadScene(0);
+                
+                Fader.instance.ShowMessage("ÂÛ ÏÐÎÈÃÐÀËÈ", () => SceneManager.LoadScene(0));
             }
             else
             {

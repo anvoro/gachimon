@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.View
 {
@@ -13,6 +15,10 @@ namespace Assets.Scripts.View
         public static Fader instance = null; // Экземпляр объекта
 
         public CanvasGroup CanvasGroup;
+
+        public GameObject message;
+        public TMP_Text messageText;
+        public Button Button;
 
         // Метод, выполняемый при старте игры
         void Start()
@@ -35,11 +41,24 @@ namespace Assets.Scripts.View
             InitializeManager();
         }
 
+        public void ShowMessage(string m, Action callback)
+        {
+            Button.onClick.RemoveAllListeners();
+
+            if(callback != null)
+                Button.onClick.AddListener(() => callback());
+
+            Button.onClick.AddListener(() => message.gameObject.SetActive(false));
+
+            this.messageText.text = m;
+            message.gameObject.SetActive(true);
+        }
+
         // Метод инициализации менеджера
         private void InitializeManager()
         {
             CanvasGroup.alpha = 0;
-
+            message.gameObject.SetActive(false);
             this.CanvasGroup.gameObject.SetActive(false);
         }
 
