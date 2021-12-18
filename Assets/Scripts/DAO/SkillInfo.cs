@@ -14,12 +14,16 @@ namespace Assets.Scripts.DAO
     [CreateAssetMenu]
     public class SkillInfo : ScriptableObject
     {
+        public AudioClip AudioClip;
+
         public Sprite Sprite;
         public AnimationType AnimationType;
 
         public SkillType SkillType;
 
         public List<StatusInfoBase> Status;
+
+        public int Cooldown;
 
         [Header("Damage")]
         public int DamageValue;

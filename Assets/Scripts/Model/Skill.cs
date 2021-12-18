@@ -9,6 +9,8 @@ namespace Assets.Scripts
 {
     public class Skill
     {
+        public AudioClip AudioClip;
+
         public Sprite Sprite { get; private set; }
 
         public AnimationType AnimationType { get; private set; }
@@ -25,8 +27,14 @@ namespace Assets.Scripts
 
         private List<StatusInfoBase> _status;
 
+        private int _cooldown;
+
+        public int CurrentCooldown { get; set; }
+
         public Skill(SkillInfo info)
         {
+            this.AudioClip = info.AudioClip;
+
             this.Sprite = info.Sprite;
             this.AnimationType = info.AnimationType;
 
@@ -38,6 +46,13 @@ namespace Assets.Scripts
             this._heal = info.Heal;
 
             this._isStun = info.IsStun;
+
+            if(info.Cooldown > 0)
+                this._cooldown = info.Cooldown + 1;
+            else
+            {
+                this._cooldown = 0;
+            }
 
             this._status = info.Status.ToList();
         }
@@ -61,6 +76,8 @@ namespace Assets.Scripts
 
         public void Cast(CharacterModel caster, CharacterModel target, List<CharacterModel> targets)
         {
+            this.CurrentCooldown = this._cooldown;
+
             foreach (StatusInfoBase statusInfo in this._status)
             {
                 Status existingStatus = target.GetStatus(statusInfo.name);
