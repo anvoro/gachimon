@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba8567b0fa595847baffe7686d53776, type: 3}
   m_Name: Heal
   m_EditorClassIdentifier: 
+  AudioClip: {fileID: 8300000, guid: 81efa82338571cd48a4bad1183250d0d, type: 3}
   Sprite: {fileID: 21300000, guid: 1fc2c0380228a1743b00211fc75b3768, type: 3}
   AnimationType: 3
   SkillType: 2
   Status: []
+  Cooldown: 0
   DamageValue: 0
-  AoeMultiplier: 0
   Defense: 5
   Heal: 45
   IsStun: 0

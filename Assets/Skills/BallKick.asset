@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba8567b0fa595847baffe7686d53776, type: 3}
   m_Name: BallKick
   m_EditorClassIdentifier: 
+  AudioClip: {fileID: 8300000, guid: a4a5069f363581749a98419d774588a7, type: 3}
   Sprite: {fileID: 21300000, guid: 6485c08ecb7d73c4fb6671d29ad6e2d1, type: 3}
   AnimationType: 1
   SkillType: 0
