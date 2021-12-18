@@ -23,7 +23,7 @@ namespace Assets.Scripts.View
 
         private void GoToBattle()
         {
-            SceneManager.LoadScene(2);
+            Fader.instance.GoFade(() => SceneManager.LoadScene(2));
         }
     }
 }
