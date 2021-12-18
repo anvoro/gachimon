@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Enemy cop
   m_EditorClassIdentifier: 
   View: {fileID: 6769263875562716332, guid: 8b688da8e06b8b24d955273f351f6ff0, type: 3}
-  MaxHealth: 100
+  MaxHealth: 75
   Side: 1
   Initiative: 1
   Skills:
   - {fileID: 11400000, guid: 5125a8fab11f52144a0433d9b88ae1b9, type: 2}
+  - {fileID: 11400000, guid: 5c3ac0e97f45d504d8e92ff09c948c00, type: 2}

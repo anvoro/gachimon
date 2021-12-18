@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enemy TV
   m_EditorClassIdentifier: 
   View: {fileID: 6769263875562716332, guid: c66be86754011a84fb6da58eab0b5395, type: 3}
-  MaxHealth: 100
+  MaxHealth: 80
   Side: 1
   Initiative: 1
   Skills:

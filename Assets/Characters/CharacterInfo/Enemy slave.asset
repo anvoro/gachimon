@@ -18,3 +18,4 @@ MonoBehaviour:
   Initiative: 1
   Skills:
   - {fileID: 11400000, guid: 5125a8fab11f52144a0433d9b88ae1b9, type: 2}
+  - {fileID: 11400000, guid: a6c34e33957ff3d459fd1cdcf61a19f4, type: 2}

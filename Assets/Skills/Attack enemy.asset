@@ -18,7 +18,7 @@ MonoBehaviour:
   SkillType: 0
   Status: []
   Cooldown: 0
-  DamageValue: 20
+  DamageValue: 15
   Defense: 5
   Heal: 20
   IsStun: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enemy halo
   m_EditorClassIdentifier: 
   View: {fileID: 6769263875562716332, guid: b17d241547e7c9e44ae9b17f2dca4361, type: 3}
-  MaxHealth: 100
+  MaxHealth: 75
   Side: 1
   Initiative: 1
   Skills:
