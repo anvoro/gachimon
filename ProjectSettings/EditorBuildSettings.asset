@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Combat_room.unity
+    guid: 7e9dcbbc60990364ba690967f8e3b89d
   m_configObjects: {}

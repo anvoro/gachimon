@@ -25,6 +25,11 @@ namespace Assets.Scripts.View
             };
         }
 
+        private void OnDestroy()
+        {
+            OnSelected = null;
+        }
+
         public void Clear()
         {
             this.gameObject.SetActive(false);

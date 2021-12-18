@@ -108,10 +108,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gachi:
   - {fileID: 11400000, guid: adf4d9e16d7eb5f43bd4a4b9aa96312d, type: 2}
-  _enemies:
-  - {fileID: 11400000, guid: 12080a24499b2944185038b3c4b5ee30, type: 2}
-  - {fileID: 11400000, guid: 12080a24499b2944185038b3c4b5ee30, type: 2}
-  - {fileID: 11400000, guid: 12080a24499b2944185038b3c4b5ee30, type: 2}
+  _battles:
+  - Enemies:
+    - {fileID: 11400000, guid: 12080a24499b2944185038b3c4b5ee30, type: 2}
+    - {fileID: 11400000, guid: 12080a24499b2944185038b3c4b5ee30, type: 2}
+    - {fileID: 11400000, guid: 12080a24499b2944185038b3c4b5ee30, type: 2}
+  - Enemies:
+    - {fileID: 11400000, guid: 12080a24499b2944185038b3c4b5ee30, type: 2}
   _partySpawnPoints:
   - {fileID: 1296648374864440957}
   _enemySpawnPoints:

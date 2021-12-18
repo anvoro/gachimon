@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.DAO;
@@ -5,6 +6,7 @@ using Assets.Scripts.Model;
 using Assets.Scripts.View;
 using RSG;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using CharacterInfo = Assets.Scripts.DAO.CharacterInfo;
 
 namespace Assets.Scripts
@@ -13,6 +15,12 @@ namespace Assets.Scripts
     {
         TurnBegin = 0,
         TurnEnd = 1,    
+    }
+
+    [Serializable]
+    public struct BattleConfig
+    {
+        public List<CharacterInfo> Enemies;
     }
 
     public class Battle : MonoBehaviour
@@ -40,7 +48,7 @@ namespace Assets.Scripts
             new Dictionary<CharacterModel, CharacterView>();
 
         [SerializeField] private List<CharacterInfo> _gachi;
-        [SerializeField] private List<CharacterInfo> _enemies;
+        [SerializeField] private List<BattleConfig> _battles;
 
         [SerializeField] private Transform[] _partySpawnPoints;
         [SerializeField] private Transform[] _enemySpawnPoints;
@@ -53,6 +61,7 @@ namespace Assets.Scripts
         [SerializeField]
         private SkillsPanel SkillsPanel;
 
+        private static int battleIndex = 0;
         private void Start()
         {
             List<CharacterModel> party = new List<CharacterModel>();
@@ -77,9 +86,9 @@ namespace Assets.Scripts
                 this._viewByModel.Add(party[i], gachiMan);
             }
 
-            for (int i = 0; i < this._enemies.Count; i++)
+            for (int i = 0; i < this._battles[battleIndex].Enemies.Count; i++)
             {
-                CharacterModel enemy = new CharacterModel(this._enemies[i]);
+                 CharacterModel enemy = new CharacterModel(this._battles[battleIndex].Enemies[i]);
 
                  CharacterView enemyViev = Instantiate(enemy.View, this._enemySpawnPoints[i]);
                  this._charactersInBattle.Add(enemy);
@@ -124,56 +133,65 @@ namespace Assets.Scripts
 
         private void BeginRound()
         {
-            if (this._charactersInBattle.Count(_ => _.Side == Side.Enemy) == 0)
+            foreach (CharacterModel c in this._charactersInBattle.OrderBy(_ => _.Initiative))
             {
-                Debug.Log("GO TO NEXT BATTLE");
+                this._characterActionQueue.Enqueue(c);
             }
-            else if(this._charactersInBattle.Count(_ => _.Side == Side.Player) == 0)
-            {
-                Debug.Log("GAME OVER");
-            }
-            else
-            {
-                foreach (CharacterModel c in this._charactersInBattle.OrderBy(_ => _.Initiative))
-                {
-                    this._characterActionQueue.Enqueue(c);
-                }
 
-                this.BeginTurn();
-            }
+            this.BeginTurn();
+        }
+
+        private void OnDestroy()
+        {
+            HealthPopup.Clear();
         }
 
         private void BeginTurn()
         {
-            this._currentCharacter = this._characterActionQueue.Dequeue();
-
-            if (this._currentCharacter.CurrentHealth > 0)
+            if (this._charactersInBattle.Count(_ => _.Side == Side.Enemy) == 0)
             {
-                foreach (Status status in this._currentCharacter.StatusList)
-                {
-                    status.Action.Invoke(this._currentCharacter, BattlePhase.TurnBegin);
-                }
+                Debug.Log("GO TO NEXT BATTLE");
+                battleIndex++;
 
-                foreach (Status status in this._currentCharacter.StatusList)
-                {
-                    if (status.Duration > 0)
-                        status.Duration--;
-                }
-
-                this._currentCharacter.StatusList.RemoveAll(_ => _.Duration == 0);
-
-                this._currentCharacter.Clear();
-
-                this._viewByModel[this._currentCharacter].ActivateTurnMark = true;
-
-                this.SkillsPanel.Init(this._currentCharacter);
-
-                if (this._currentCharacter.IsActive < 0 || this._currentCharacter.CurrentHealth <= 0)
-                    this.EndTurn();
+                SceneManager.LoadScene(0);
+            }
+            else if (this._charactersInBattle.Count(_ => _.Side == Side.Player) == 0)
+            {
+                Debug.Log("GAME OVER");
+                battleIndex = 0;
             }
             else
             {
-                this.EndTurn();
+                this._currentCharacter = this._characterActionQueue.Dequeue();
+
+                if (this._currentCharacter.CurrentHealth > 0)
+                {
+                    foreach (Status status in this._currentCharacter.StatusList)
+                    {
+                        status.Action.Invoke(this._currentCharacter, BattlePhase.TurnBegin);
+                    }
+
+                    foreach (Status status in this._currentCharacter.StatusList)
+                    {
+                        if (status.Duration > 0)
+                            status.Duration--;
+                    }
+
+                    this._currentCharacter.StatusList.RemoveAll(_ => _.Duration == 0);
+
+                    this._currentCharacter.Clear();
+
+                    this._viewByModel[this._currentCharacter].ActivateTurnMark = true;
+
+                    this.SkillsPanel.Init(this._currentCharacter);
+
+                    if (this._currentCharacter.IsActive < 0 || this._currentCharacter.CurrentHealth <= 0)
+                        this.EndTurn();
+                }
+                else
+                {
+                    this.EndTurn();
+                }
             }
         }
 

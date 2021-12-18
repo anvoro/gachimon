@@ -15,6 +15,11 @@ namespace Assets.Scripts.View
 
         private static RectTransform Parent => parent ?? (parent = GameObject.Find("Canvas").GetComponent<RectTransform>());
 
+        public static void Clear()
+        {
+            parent = null;
+        }
+
         [SerializeField]
         private float _speed = 1f;
 
