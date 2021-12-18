@@ -14,6 +14,7 @@ namespace Assets.Scripts.View
 
         private void Awake()
         {
+            Button.onClick.RemoveAllListeners();
             Button.onClick.AddListener(() => Fader.instance.ShowMessage("CUMING SOON", null));
         }
     }
