@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba8567b0fa595847baffe7686d53776, type: 3}
   m_Name: AOE
   m_EditorClassIdentifier: 
+  AudioClip: {fileID: 8300000, guid: 064e727a84a9592469eb6bf30c12be38, type: 3}
   Sprite: {fileID: 21300000, guid: 5ffb06b9a2e40e24fbfcb4ad46a01bf6, type: 3}
   AnimationType: 4
   SkillType: 3

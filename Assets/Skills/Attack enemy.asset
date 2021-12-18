@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba8567b0fa595847baffe7686d53776, type: 3}
   m_Name: Attack enemy
   m_EditorClassIdentifier: 
+  AudioClip: {fileID: 8300000, guid: 7e44eac680e28724fbe51fb3d9fc6b2c, type: 3}
   Sprite: {fileID: 21300000, guid: 4ba7a48603d1a54439b52bbe070c6c7f, type: 3}
   AnimationType: 0
   SkillType: 0
   Status: []
+  Cooldown: 0
   DamageValue: 20
-  AoeMultiplier: 0
   Defense: 5
   Heal: 20
   IsStun: 0
