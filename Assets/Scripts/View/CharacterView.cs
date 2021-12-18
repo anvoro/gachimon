@@ -99,6 +99,11 @@ namespace Assets.Scripts
 
                 Battle.WaitWithDelay(2f).Done(() => this._combatPanel.gameObject.SetActive(false));
             };
+
+            this._model.OnStatusChange += list =>
+            {
+                this._combatPanel.SetStatusList(list);
+            };
         }
 
         private void OnMouseDown()

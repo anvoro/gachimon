@@ -20,6 +20,24 @@ namespace Assets.Scripts.Model
 
         public readonly List<Status> StatusList = new List<Status>();
 
+        public Status GetStatus(string tag)
+        {
+            return StatusList.FirstOrDefault(_ => _.Tag == tag);
+        }
+
+        public event Action<List<Status>> OnStatusChange;
+        public void AddStatus(Status status)
+        {
+            this.StatusList.Add(status);
+            this.OnStatusChange?.Invoke(StatusList);
+        }
+
+        public void RemoveStatus()
+        {
+            this.StatusList.RemoveAll(_ => _.Duration == 0);
+            this.OnStatusChange?.Invoke(StatusList);
+        }
+
         public Skill SelectedSkill { get; set; }
 
         public List<Skill> Skills => this._skills.ToList();

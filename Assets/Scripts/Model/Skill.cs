@@ -64,10 +64,10 @@ namespace Assets.Scripts
         {
             foreach (StatusInfoBase statusInfo in this._status)
             {
-                Status existingStatus = target.StatusList.FirstOrDefault(_ => _.Tag == statusInfo.name);
+                Status existingStatus = target.GetStatus(statusInfo.name);
                 if (existingStatus == null)
                 {
-                    target.StatusList.Add(new Status(statusInfo));
+                    target.AddStatus(new Status(statusInfo));
                 }
                 else
                 {

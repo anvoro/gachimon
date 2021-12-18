@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ee654c9575c94b4a986bdd38e3ec1c7, type: 3}
-  m_Name: DOTStatusPlayer
+  m_Script: {fileID: 11500000, guid: f44b0089d99ecd447b78eb81c03e245a, type: 3}
+  m_Name: DefenceIconStatus
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 21300000, guid: 0a86e425796170e49b6148c6ac6ed978, type: 3}
-  Duration: 2
-  DOTDamage: 35
+  Sprite: {fileID: 21300000, guid: 84dfc51c68e4e8040a3547a0634a2e16, type: 3}
+  Duration: 1

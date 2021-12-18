@@ -177,7 +177,7 @@ namespace Assets.Scripts
                             status.Duration--;
                     }
 
-                    this._currentCharacter.StatusList.RemoveAll(_ => _.Duration == 0);
+                    this._currentCharacter.RemoveStatus();
 
                     this._currentCharacter.Clear();
 

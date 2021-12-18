@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Model;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Model;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,32 @@ namespace Assets.Scripts
 
         [SerializeField]
         private Slider _healthBar;
+
+        [SerializeField] private Image[] _statusList;
+
+        private void Start()
+        {
+            foreach (Image image in this._statusList)
+            {
+                image.gameObject.SetActive(false);
+            }
+        }
+
+        public void SetStatusList(List<Status> statusList)
+        {
+            foreach (Image image in this._statusList)
+            {
+                image.gameObject.SetActive(false);
+            }
+
+            for (int i = 0; i < statusList.Count; i++)
+            {
+                Status status = statusList[i];
+
+                this._statusList[i].gameObject.SetActive(true);
+                this._statusList[i].sprite = status.Sprite;
+            }
+        }
 
         public void SetHealthBar(CharacterModel character, bool isSetMax)
         {
