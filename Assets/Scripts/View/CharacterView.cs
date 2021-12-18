@@ -9,6 +9,7 @@ using Assets.Scripts.View;
 using RSG;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Random = UnityEngine.Random;
 
 namespace Assets.Scripts
 {
@@ -58,6 +59,8 @@ namespace Assets.Scripts
 
         public void Init(CharacterModel model, RectTransform parent, Camera camera)
         {
+            this._animator.SetFloat("Offset", Random.Range(0f, 4f));
+
             this.ActivateTurnMark = false;
 
             this._model = model;
@@ -68,13 +71,31 @@ namespace Assets.Scripts
             this._model.OnHealthChange += value =>
             {
                 this._combatPanel.SetHealthBar(this._model, false);
-                HealthPopup.Instantiate(this._healthBarTransform.position + new Vector3(0, .5f, 0), value.ToString(), Color.red,
-                    Color.black);
+
+                if (value <= 0)
+                {
+                    this._animator.SetTrigger("Hurt");
+
+                    HealthPopup.Instantiate(this._healthBarTransform.position + new Vector3(0, .5f, 0), value.ToString(), Color.red,
+                        Color.black);
+                }
+                else
+                {
+                    HealthPopup.Instantiate(this._healthBarTransform.position + new Vector3(0, .5f, 0), value.ToString(), Color.green,
+                        Color.black);
+                }
             };
 
             this._model.OnActiveStateChange += value =>
             {
                 this._animator.SetBool("Stunned", value < 0);
+            };
+
+            this._model.OnDeath += character =>
+            {
+                this._animator.SetTrigger("Death");
+
+                Battle.WaitWithDelay(2f).Done(() => this._combatPanel.gameObject.SetActive(false));
             };
         }
 

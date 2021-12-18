@@ -47,15 +47,19 @@ namespace Assets.Scripts.Model
             set => this._maxHealth = value;
         }
 
+        public event Action<CharacterModel> OnDeath;
         public event Action<int> OnHealthChange;
         public int CurrentHealth
         {
             get => this._currentHealth;
             set
             {
-                int delta = this._currentHealth - value;
+                int delta = value - this._currentHealth;
                 this._currentHealth = value;
                 this.OnHealthChange?.Invoke(delta);
+
+                if(this._currentHealth <= 0)
+                    this.OnDeath?.Invoke(this);
             }
         }
 
