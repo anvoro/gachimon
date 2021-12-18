@@ -61,6 +61,8 @@ namespace Assets.Scripts
         [SerializeField]
         private SkillsPanel SkillsPanel;
 
+        [SerializeField] private CharacterCombatPanel _characterCombatPanel;
+
         private static int battleIndex = 0;
         private void Start()
         {
@@ -106,6 +108,8 @@ namespace Assets.Scripts
                     this._charactersInBattle.Remove(c);
                 };
             }
+
+            _viewByModel[this._charactersInBattle.First(_ => _.Side == Side.Player)].SetCharPanel(this._characterCombatPanel);
 
             this.BeginRound();
 

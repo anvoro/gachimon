@@ -110,6 +110,7 @@ MonoBehaviour:
   - {fileID: 2113587167246250279}
   - {fileID: 768034845187051839}
   - {fileID: 4314952103260260001}
+  _hp: {fileID: 7052442164463388115}
 --- !u!1 &787858886069755587
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,8 +202,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
-  m_fontSizeBase: 72
+  m_fontSize: 88
+  m_fontSizeBase: 88
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -455,6 +456,7 @@ MonoBehaviour:
   _combatCamera: {fileID: 0}
   _cameraRectTransform: {fileID: 5693432321614569432}
   SkillsPanel: {fileID: 5693432321760321266}
+  _characterCombatPanel: {fileID: 3519604014081732000}
 --- !u!1 &1296648375134880913
 GameObject:
   m_ObjectHideFlags: 0

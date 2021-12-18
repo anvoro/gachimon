@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Model;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,8 @@ namespace Assets.Scripts
         private Slider _healthBar;
 
         [SerializeField] private Image[] _statusList;
+
+        [SerializeField] private TMP_Text _hp;
 
         private void Start()
         {
@@ -42,6 +45,9 @@ namespace Assets.Scripts
 
         public void SetHealthBar(CharacterModel character, bool isSetMax)
         {
+            if (this._hp != null)
+                this._hp.text = character.CurrentHealth.ToString();
+
             int fullHealth = character.MaxHealth;
             float hpPart = (float)character.CurrentHealth / fullHealth;
 

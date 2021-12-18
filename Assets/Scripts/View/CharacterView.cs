@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Assets.Scripts.DAO;
 using Assets.Scripts.Model;
 using Assets.Scripts.View;
 using RSG;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
 
 namespace Assets.Scripts
@@ -74,10 +69,10 @@ namespace Assets.Scripts
             this._combatPanel = CharacterCombatPanel.Instantiate(this._healthBarTransform, parent, camera);
             this._combatPanel.SetHealthBar(this._model, true);
 
+            SetCharPanel(this._combatPanel);
+
             this._model.OnHealthChange += value =>
             {
-                this._combatPanel.SetHealthBar(this._model, false);
-
                 if (value <= 0)
                 {
                     this._animator.SetTrigger("Hurt");
@@ -103,11 +98,12 @@ namespace Assets.Scripts
 
                 Battle.WaitWithDelay(2f).Done(() => this._combatPanel.gameObject.SetActive(false));
             };
+        }
 
-            this._model.OnStatusChange += list =>
-            {
-                this._combatPanel.SetStatusList(list);
-            };
+        public void SetCharPanel(CharacterCombatPanel characterCombatPanel)
+        {
+            this._model.OnStatusChange += characterCombatPanel.SetStatusList;
+            this._model.OnHealthChange += value => { characterCombatPanel.SetHealthBar(this._model, false); };
         }
 
         private void OnMouseDown()
