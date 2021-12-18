@@ -13,6 +13,11 @@ MonoBehaviour:
   m_Name: Attack
   m_EditorClassIdentifier: 
   Sprite: {fileID: 21300000, guid: 8adb20f145625284f8418eae4ed45fbc, type: 3}
+  AnimationType: 0
   SkillType: 0
-  DamageValue: 15
+  Status: []
+  DamageValue: 20
   AoeMultiplier: 0
+  Defense: 5
+  Heal: 20
+  IsStun: 0

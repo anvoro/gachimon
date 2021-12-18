@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   View: {fileID: 6769263875562716332, guid: 0194750b2ae9bb14295a34872c7071b5, type: 3}
-  MaxHealth: 100
+  MaxHealth: 200
   Side: 0
   Initiative: 1
   Skills:
