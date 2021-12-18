@@ -52,6 +52,10 @@ namespace Assets.Scripts
                     this._animator.SetTrigger("Block");
                     break;
 
+                case AnimationType.Kick:
+                    this._animator.SetTrigger("Kick");
+                    break;
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(animation), animation, null);
             }

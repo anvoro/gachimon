@@ -19,6 +19,7 @@ namespace Assets.Scripts.DAO
         Attack2 = 1,
         Defense = 2,
         Block = 3,
+        Kick = 4,
     }
 
     [CreateAssetMenu]

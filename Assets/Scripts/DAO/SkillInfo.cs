@@ -8,6 +8,7 @@ namespace Assets.Scripts.DAO
         Damage = 0,
         SelfDefense = 1,
         Heal = 2,
+        AOEDamage = 3,
     }
 
     [CreateAssetMenu]
@@ -22,7 +23,6 @@ namespace Assets.Scripts.DAO
 
         [Header("Damage")]
         public int DamageValue;
-        public int AoeMultiplier;
 
         [Header("Defense")]
         public int Defense = 5;

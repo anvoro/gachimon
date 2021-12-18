@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba8567b0fa595847baffe7686d53776, type: 3}
   m_Name: Defence
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 21300000, guid: 84dfc51c68e4e8040a3547a0634a2e16, type: 3}
+  Sprite: {fileID: 21300000, guid: 92c70a037416207489a8ff75012ad95b, type: 3}
   AnimationType: 2
   SkillType: 1
   Status:

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba8567b0fa595847baffe7686d53776, type: 3}
   m_Name: AttackDOT
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 21300000, guid: 0a86e425796170e49b6148c6ac6ed978, type: 3}
+  Sprite: {fileID: 21300000, guid: 8af361667c429df43b0874e3f95b0838, type: 3}
   AnimationType: 1
   SkillType: 0
   Status:
@@ -20,4 +20,5 @@ MonoBehaviour:
   DamageValue: 10
   AoeMultiplier: 0
   Defense: 5
+  Heal: 20
   IsStun: 0

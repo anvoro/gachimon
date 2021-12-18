@@ -16,7 +16,6 @@ namespace Assets.Scripts
         private SkillType _skillType;
 
         private int _damageValue;
-        private int _aoeMultiplier;
 
         private int _defense;
 
@@ -33,7 +32,6 @@ namespace Assets.Scripts
 
             this._skillType = info.SkillType;
             this._damageValue = info.DamageValue;
-            this._aoeMultiplier = info.AoeMultiplier;
 
             this._defense = info.Defense;
 
@@ -48,6 +46,7 @@ namespace Assets.Scripts
         {
             switch (this._skillType)
             {
+                case SkillType.AOEDamage:
                 case SkillType.Damage:
                     return caster.Side != target.Side;
 
@@ -78,16 +77,13 @@ namespace Assets.Scripts
             switch (this._skillType)
             {
                 case SkillType.Damage:
-                    if (this._aoeMultiplier > 0)
+                    target.Hurt(this._damageValue);
+                    break;
+
+                case SkillType.AOEDamage:
+                    foreach (CharacterModel t in targets)
                     {
-                        foreach (CharacterModel t in targets)
-                        {
-                            t.Hurt(Mathf.FloorToInt(this._damageValue * this._aoeMultiplier / 100f));
-                        }
-                    }
-                    else
-                    {
-                        target.Hurt(this._damageValue);
+                        t.Hurt(this._damageValue);
                     }
                     break;
 

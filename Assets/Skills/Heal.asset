@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba8567b0fa595847baffe7686d53776, type: 3}
   m_Name: Heal
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 21300000, guid: c73c7f14a4e133d40b52a8934d8d1567, type: 3}
+  Sprite: {fileID: 21300000, guid: 1fc2c0380228a1743b00211fc75b3768, type: 3}
   AnimationType: 3
   SkillType: 2
   Status: []

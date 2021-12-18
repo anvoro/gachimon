@@ -9,8 +9,6 @@ namespace Assets.Scripts.View
     {
         private static event Action<SkillImage> OnSelected;
 
-        [SerializeField] private GameObject _border;
-
         [SerializeField] private Image _image;
 
         private Skill _skill;
@@ -21,7 +19,7 @@ namespace Assets.Scripts.View
         {
             OnSelected += item =>
             {
-                this._border.SetActive(item == this);
+                this._image.color = item == this ? Color.white : Color.gray;
             };
         }
 
@@ -39,7 +37,7 @@ namespace Assets.Scripts.View
         {
             this._image.sprite = skill.Sprite;
 
-            this._border.SetActive(isSelected);
+            this._image.color = isSelected ? Color.white : Color.gray;
 
             this.gameObject.SetActive(true);
 
