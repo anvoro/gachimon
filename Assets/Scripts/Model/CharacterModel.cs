@@ -74,6 +74,9 @@ namespace Assets.Scripts.Model
             {
                 int delta = value - this._currentHealth;
                 this._currentHealth = value;
+                if (this._currentHealth < 0)
+                    this._currentHealth = 0;
+
                 this.OnHealthChange?.Invoke(delta);
 
                 if(this._currentHealth <= 0)

@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.View
 {
@@ -19,6 +20,9 @@ namespace Assets.Scripts.View
         {
             parent = null;
         }
+
+        public Sprite[] frazi;
+        public Image frazaIcon;
 
         [SerializeField]
         private float _speed = 1f;
@@ -56,6 +60,8 @@ namespace Assets.Scripts.View
                 result.Text = message;
                 result.Color = color;
                 result.OutlineColor = outlineColor;
+
+                result.frazaIcon.sprite = result.frazi[Random.Range(0, result.frazi.Length)];
 
                 //healthPopup.GetComponentInChildren<Canvas>().sortingOrder = sortOrder;
 

@@ -108,6 +108,9 @@ namespace Assets.Scripts
 
         private void OnMouseDown()
         {
+            if(this._model.CurrentHealth <= 0)
+                return;
+
             this.OnCharacterSelected?.Invoke(this._model);
         }
     }
