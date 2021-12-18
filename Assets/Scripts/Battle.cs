@@ -116,6 +116,7 @@ namespace Assets.Scripts
             }
 
             _viewByModel[this._charactersInBattle.First(_ => _.Side == Side.Player)].SetCharPanel(this._characterCombatPanel);
+            this._characterCombatPanel.SetHealthBar(this._charactersInBattle.First(_ => _.Side == Side.Player), true);
 
             this.BeginRound();
         }
