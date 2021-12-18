@@ -15,8 +15,9 @@ namespace Assets.Scripts.DAO
 
     public enum AnimationType
     {
-        Attack = 0,
-        Defense = 1,
+        Attack1 = 0,
+        Attack2 = 1,
+        Defense = 2,
     }
 
     [CreateAssetMenu]

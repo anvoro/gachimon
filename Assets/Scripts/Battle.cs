@@ -24,7 +24,7 @@ namespace Assets.Scripts
 
         public static IPromise WaitWithDelay(float duration)
         {
-            return PromiseTimer.WaitFor(duration).Then(() => PromiseTimer.WaitFor(.2f));
+            return PromiseTimer.WaitFor(duration).Then(() => PromiseTimer.WaitFor(.01f));
         }
 
         public static bool IsBusy { get; private set; }
@@ -90,6 +90,11 @@ namespace Assets.Scripts
             {
                 pair.Value.Init(pair.Key, this._cameraRectTransform, this._combatCamera);
                 pair.Value.OnCharacterSelected += OnCharacterSelected;
+
+                pair.Key.OnDeath += c =>
+                {
+                    this._charactersInBattle.Remove(c);
+                };
             }
 
             this.BeginRound();
@@ -130,28 +135,34 @@ namespace Assets.Scripts
         {
             this._currentCharacter = this._characterActionQueue.Dequeue();
 
-            foreach (Status status in this._currentCharacter.StatusList)
+            if (this._currentCharacter.CurrentHealth > 0)
             {
-                status.Action.Invoke(this._currentCharacter, BattlePhase.TurnBegin);
-            }
-            //todo death check!!!
+                foreach (Status status in this._currentCharacter.StatusList)
+                {
+                    status.Action.Invoke(this._currentCharacter, BattlePhase.TurnBegin);
+                }
 
-            foreach (Status status in this._currentCharacter.StatusList)
+                foreach (Status status in this._currentCharacter.StatusList)
+                {
+                    if (status.Duration > 0)
+                        status.Duration--;
+                }
+
+                this._currentCharacter.StatusList.RemoveAll(_ => _.Duration == 0);
+
+                this._currentCharacter.Clear();
+
+                this._viewByModel[this._currentCharacter].ActivateTurnMark = true;
+
+                this.SkillsPanel.Init(this._currentCharacter);
+
+                if (this._currentCharacter.IsActive < 0 || this._currentCharacter.CurrentHealth <= 0)
+                    this.EndTurn();
+            }
+            else
             {
-                if (status.Duration > 0)
-                    status.Duration--;
-            }
-
-            this._currentCharacter.StatusList.RemoveAll(_ => _.Duration == 0);
-
-            this._currentCharacter.Clear();
-
-            this._viewByModel[this._currentCharacter].ActivateTurnMark = true;
-
-            this.SkillsPanel.Init(this._currentCharacter);
-
-            if(this._currentCharacter.IsActive < 0)
                 this.EndTurn();
+            }
         }
 
         private void EndTurn()
