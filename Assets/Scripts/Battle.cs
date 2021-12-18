@@ -8,6 +8,7 @@ using RSG;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using CharacterInfo = Assets.Scripts.DAO.CharacterInfo;
+using Random = UnityEngine.Random;
 
 namespace Assets.Scripts
 {
@@ -101,7 +102,7 @@ namespace Assets.Scripts
             foreach (var pair in this._viewByModel)
             {
                 pair.Value.Init(pair.Key, this._cameraRectTransform, this._combatCamera);
-                pair.Value.OnCharacterSelected += OnCharacterSelected;
+                pair.Value.OnCharacterSelected += c => OnCharacterSelected(c, false);
 
                 pair.Key.OnDeath += c =>
                 {
@@ -112,33 +113,36 @@ namespace Assets.Scripts
             _viewByModel[this._charactersInBattle.First(_ => _.Side == Side.Player)].SetCharPanel(this._characterCombatPanel);
 
             this.BeginRound();
+        }
 
-            void OnCharacterSelected(CharacterModel target)
+        void OnCharacterSelected(CharacterModel target, bool force)
+        {
+            if (force == false)
             {
-                if(IsBusy == true)
+                if (IsBusy == true)
                     return;
 
                 if (this._currentCharacter.SelectedSkill.IsAvailable(this._currentCharacter, target) == false)
                     return;
-
-                IsBusy = true;
-
-                this._currentCharacter.SelectedSkill.Cast(this._currentCharacter, target, this._charactersInBattle.Where(_ => _.Side == target.Side).ToList());
-
-                if (this._currentCharacter.SelectedSkill.AudioClip != null)
-                {
-                    this._audioSource.clip = this._currentCharacter.SelectedSkill.AudioClip;
-                    this._audioSource.Play();
-                }
-
-                this._viewByModel[this._currentCharacter].PlayAnimation(this._currentCharacter.SelectedSkill.AnimationType)
-                    .Done(() =>
-                    {
-                        this.EndTurn();
-
-                        IsBusy = false;
-                    });
             }
+
+            IsBusy = true;
+
+            this._currentCharacter.SelectedSkill.Cast(this._currentCharacter, target, this._charactersInBattle.Where(_ => _.Side == target.Side).ToList());
+
+            if (this._currentCharacter.SelectedSkill.AudioClip != null)
+            {
+                this._audioSource.clip = this._currentCharacter.SelectedSkill.AudioClip;
+                this._audioSource.Play();
+            }
+
+            this._viewByModel[this._currentCharacter].PlayAnimation(this._currentCharacter.SelectedSkill.AnimationType)
+                .Done(() =>
+                {
+                    this.EndTurn();
+
+                    IsBusy = false;
+                });
         }
 
         [SerializeField] private AudioSource _audioSource;
@@ -216,11 +220,23 @@ namespace Assets.Scripts
                     this.SkillsPanel.Init(this._currentCharacter);
 
                     if (this._currentCharacter.IsActive < 0 || this._currentCharacter.CurrentHealth <= 0)
+                    {
                         this.EndTurn();
+                        return;
+                    }
                 }
                 else
                 {
                     this.EndTurn();
+                    return;
+                }
+
+                if (this._currentCharacter.Side == Side.Enemy)
+                {
+                    this._currentCharacter.SelectedSkill =
+                        this._currentCharacter.Skills[Random.Range(0, this._currentCharacter.Skills.Count)];
+
+                    OnCharacterSelected(this._charactersInBattle.First(_ => _.Side == Side.Player), true);
                 }
             }
         }

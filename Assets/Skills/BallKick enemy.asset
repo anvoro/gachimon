@@ -21,4 +21,4 @@ MonoBehaviour:
   DamageValue: 10
   Defense: 5
   Heal: 20
-  IsStun: 1
+  IsStun: 0

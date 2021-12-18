@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.DAO;
 using Assets.Scripts.Model;
 using UnityEngine;
 
@@ -32,6 +33,9 @@ namespace Assets.Scripts.View
             {
                 image.Clear();
             }
+
+            if(model.Side == Side.Enemy)
+                return;
 
             for (int i = 0; i < model.Skills.Count; i++)
             {
