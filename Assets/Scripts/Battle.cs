@@ -171,6 +171,7 @@ namespace Assets.Scripts
             {
                 Debug.Log("GAME OVER");
                 battleIndex = 0;
+                SceneManager.LoadScene(0);
             }
             else
             {

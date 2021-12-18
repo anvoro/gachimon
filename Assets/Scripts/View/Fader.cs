@@ -43,12 +43,12 @@ namespace Assets.Scripts.View
             this.CanvasGroup.gameObject.SetActive(false);
         }
 
-        public void GoFade()
+        public void GoFade(Action callback)
         {
-            StartCoroutine(this.Fade());
+            StartCoroutine(this.Fade(callback));
         }
 
-        private IEnumerator Fade()
+        private IEnumerator Fade(Action callback)
         {
             this.CanvasGroup.gameObject.SetActive(true);
 
@@ -61,7 +61,18 @@ namespace Assets.Scripts.View
                 yield return null;
             }
 
-            //CanvasGroup.alpha = 0;
+            callback.Invoke();
+
+            elapsedTime = 0f;
+
+            while (elapsedTime < 1f)
+            {
+                elapsedTime += Time.deltaTime;
+                CanvasGroup.alpha = 1 - elapsedTime;
+                yield return null;
+            }
+
+            CanvasGroup.alpha = 0;
 
             this.CanvasGroup.gameObject.SetActive(false);
         }
