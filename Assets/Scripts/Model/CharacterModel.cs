@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Assets.Scripts.DAO;
 using UnityEngine;
 using CharacterInfo = Assets.Scripts.DAO.CharacterInfo;
@@ -15,17 +13,29 @@ namespace Assets.Scripts.Model
 
         private int _currentHealth;
 
-        public Side Side { get; private set; }
-
         private int _initiative;
 
         private List<Skill> _skills;
+        private int _isActive;
+
+        public readonly List<Status> StatusList = new List<Status>();
 
         public Skill SelectedSkill { get; set; }
 
         public List<Skill> Skills => this._skills.ToList();
 
-        public bool IsActive { get; set; }
+        public event Action<int> OnActiveStateChange;
+        public int IsActive
+        {
+            get => this._isActive;
+            set
+            {
+                this._isActive = value;
+                this.OnActiveStateChange?.Invoke(this._isActive);
+            }
+        }
+
+        public Side Side { get; }
 
         public int Initiative => this._initiative;
 
@@ -37,14 +47,15 @@ namespace Assets.Scripts.Model
             set => this._maxHealth = value;
         }
 
-        public event Action OnHealthChange;
+        public event Action<int> OnHealthChange;
         public int CurrentHealth
         {
             get => this._currentHealth;
             set
             {
+                int delta = this._currentHealth - value;
                 this._currentHealth = value;
-                this.OnHealthChange?.Invoke();
+                this.OnHealthChange?.Invoke(delta);
             }
         }
 
@@ -53,12 +64,14 @@ namespace Assets.Scripts.Model
         public void Clear()
         {
             this.Defense = 0;
-            this.IsActive = true;
+
+            if (this.IsActive < 0)
+                this.IsActive++;
         }
 
         public CharacterModel(CharacterInfo info)
         {
-            this.IsActive = true;
+            this.IsActive = 0;
 
             this.View = info.View;
 
@@ -71,6 +84,11 @@ namespace Assets.Scripts.Model
             this._skills = info.Skills.Select(_ => new Skill(_)).ToList();
 
             this.SelectedSkill = this._skills[0];
+        }
+
+        public void Hurt(int damageValue)
+        {
+            this.CurrentHealth -= Mathf.Max(0, damageValue - this.Defense);
         }
     }
 }

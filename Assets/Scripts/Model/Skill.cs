@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Assets.Scripts.DAO;
 using Assets.Scripts.Model;
 using UnityEngine;
@@ -22,7 +20,9 @@ namespace Assets.Scripts
 
         private int _defense;
 
-        private bool _isStun;
+        private int _isStun;
+
+        private List<StatusInfoBase> _status;
 
         public Skill(SkillInfo info)
         {
@@ -36,6 +36,8 @@ namespace Assets.Scripts
             this._defense = info.Defense;
 
             this._isStun = info.IsStun;
+
+            this._status = info.Status.ToList();
         }
 
         public bool IsAvailable(CharacterModel caster, CharacterModel target)
@@ -53,24 +55,47 @@ namespace Assets.Scripts
             }
         }
 
-        public void Cast(CharacterModel caster, CharacterModel target)
+        public void Cast(CharacterModel caster, CharacterModel target, List<CharacterModel> targets)
         {
+            foreach (StatusInfoBase statusInfo in this._status)
+            {
+                Status existingStatus = target.StatusList.FirstOrDefault(_ => _.Tag == statusInfo.name);
+                if (existingStatus == null)
+                {
+                    target.StatusList.Add(new Status(statusInfo));
+                }
+                else
+                {
+                    existingStatus.Duration = statusInfo.Duration;
+                }
+            }
+
             switch (this._skillType)
             {
                 case SkillType.Damage:
-                    target.CurrentHealth -= Mathf.Max(0, this._damageValue - target.Defense);
+                    if (this._aoeMultiplier > 0)
+                    {
+                        foreach (CharacterModel t in targets)
+                        {
+                            t.Hurt(Mathf.FloorToInt(this._damageValue * this._aoeMultiplier / 100f));
+                        }
+                    }
+                    else
+                    {
+                        target.Hurt(this._damageValue);
+                    }
                     break;
 
                 case SkillType.SelfDefense:
-                    caster.Defense += caster.Defense;
+                    caster.Defense += this._defense;
                     break;
 
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
-            if (this._isStun == true)
-                target.IsActive = false;
+            
+            if(this._isStun > 0)
+                target.IsActive -= (this._isStun + 1);
         }
     }
 }
