@@ -19,5 +19,5 @@ MonoBehaviour:
   DamageValue: 0
   AoeMultiplier: 0
   Defense: 5
-  Heal: 20
+  Heal: 45
   IsStun: 0
