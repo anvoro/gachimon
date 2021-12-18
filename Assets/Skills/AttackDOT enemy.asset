@@ -17,7 +17,7 @@ MonoBehaviour:
   AnimationType: 1
   SkillType: 0
   Status:
-  - {fileID: 11400000, guid: 940db5498103af441a5cfd00d1583369, type: 2}
+  - {fileID: 11400000, guid: 258ddd0741d3a58499c59e6ca5f417bd, type: 2}
   Cooldown: 0
   DamageValue: 10
   Defense: 5
