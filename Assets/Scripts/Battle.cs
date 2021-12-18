@@ -7,6 +7,7 @@ using Assets.Scripts.View;
 using RSG;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 using CharacterInfo = Assets.Scripts.DAO.CharacterInfo;
 using Random = UnityEngine.Random;
 
@@ -63,6 +64,10 @@ namespace Assets.Scripts
         private SkillsPanel SkillsPanel;
 
         [SerializeField] private CharacterCombatPanel _characterCombatPanel;
+
+        public VideoClip win;
+        public VideoClip lose;
+        public VideoPlayer player;
 
         private static int battleIndex = 0;
         private void Start()
@@ -162,6 +167,8 @@ namespace Assets.Scripts
             HealthPopup.Clear();
         }
 
+        public GameObject UI;
+        public AudioSource fonofaya;
         private void BeginTurn()
         {
             if (this._charactersInBattle.Count(_ => _.Side == Side.Enemy) == 0)
@@ -171,8 +178,20 @@ namespace Assets.Scripts
 
                 if (battleIndex >= this._battles.Count)
                 {
-                    battleIndex = 0;
-                    Fader.instance.ShowMessage("ÂÛ ÏÎÁÅÄÈËÈ", () => SceneManager.LoadScene(0));
+                    this.UI.SetActive(false);
+                    fonofaya.Stop();
+                    this.player.enabled = true;
+                    this.player.clip = this.win;
+                    this.player.Play();
+
+                    PromiseTimer.WaitFor((float)this.player.clip.length).Done(() =>
+                    {
+                        this.UI.SetActive(true);
+                        this.player.enabled = false;
+                        battleIndex = 0;
+                        fonofaya.Play();
+                        Fader.instance.ShowMessage("ÂÛ ÏÎÁÅÄÈËÈ", () => SceneManager.LoadScene(0));
+                    });
                 }
                 else
                 {
@@ -181,10 +200,22 @@ namespace Assets.Scripts
             }
             else if (this._charactersInBattle.Count(_ => _.Side == Side.Player) == 0)
             {
-                Debug.Log("GAME OVER");
-                battleIndex = 0;
-                
-                Fader.instance.ShowMessage("ÂÛ ÏÐÎÈÃÐÀËÈ", () => SceneManager.LoadScene(0));
+                this.UI.SetActive(false);
+                fonofaya.Stop();
+                this.player.enabled = true;
+                this.player.clip = this.lose;
+                this.player.Play();
+
+                PromiseTimer.WaitFor((float)this.player.clip.length).Done(() =>
+                {
+                    this.UI.SetActive(true);
+                    this.player.enabled = false;
+                    Debug.Log("GAME OVER");
+                    battleIndex = 0;
+
+                    fonofaya.Play();
+                    Fader.instance.ShowMessage("ÂÛ ÏÐÎÈÃÐÀËÈ", () => SceneManager.LoadScene(0));
+                });
             }
             else
             {

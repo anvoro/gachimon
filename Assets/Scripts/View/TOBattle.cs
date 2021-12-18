@@ -28,8 +28,16 @@ namespace Assets.Scripts.View
             PromiseTimer.Update(Time.deltaTime);
         }
 
+        private static bool isShown;
         private void Start()
         {
+            if (isShown == true)
+            {
+                VideoPlayer.enabled = false;
+                AudioSource.Play();
+                return;
+            }
+
             this.UI.SetActive(false);
 
             PromiseTimer.WaitFor((float)this.VideoPlayer.clip.length).Done(() =>
@@ -39,15 +47,17 @@ namespace Assets.Scripts.View
                 AudioSource.Play();
                 this.UI.SetActive(true);
             });
+
+            isShown = true;
         }
 
-        private bool isInit;
+        private static bool isInit;
         private void Awake()
         {
-            if (this.isInit == false)
+            if (isInit == false)
             {
                 SceneManager.LoadScene(1, LoadSceneMode.Additive);
-                this.isInit = true;
+                isInit = true;
             }
 
             this._button.onClick.RemoveAllListeners();
