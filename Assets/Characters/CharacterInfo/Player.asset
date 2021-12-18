@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc0caf977e7db98499cf28ba60efd720, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  View: {fileID: 6769263875562716332, guid: 0194750b2ae9bb14295a34872c7071b5, type: 3}
+  View: {fileID: 6769263875562716332, guid: 4624fbdc636f21a45b6dd4c030d6a085, type: 3}
   MaxHealth: 200
   Side: 0
   Initiative: 1
