@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Enemy slave
   m_EditorClassIdentifier: 
   View: {fileID: 6769263875562716332, guid: e84acf2177e1c4a48b520aee3fa6ae4b, type: 3}
-  MaxHealth: 100
+  MaxHealth: 200
   Side: 1
   Initiative: 1
   Skills:
-  - {fileID: 11400000, guid: 5125a8fab11f52144a0433d9b88ae1b9, type: 2}
-  - {fileID: 11400000, guid: a6c34e33957ff3d459fd1cdcf61a19f4, type: 2}
+  - {fileID: 11400000, guid: 3a81c03ec5874644da51b39bb5181344, type: 2}
+  - {fileID: 11400000, guid: 7eaa8c323f15b6e49a3bed3d3cfd475f, type: 2}
