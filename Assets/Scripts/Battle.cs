@@ -264,8 +264,8 @@ namespace Assets.Scripts
 
                 if (this._currentCharacter.Side == Side.Enemy)
                 {
-                    this._currentCharacter.SelectedSkill =
-                        this._currentCharacter.Skills[Random.Range(0, this._currentCharacter.Skills.Count)];
+                    var sa = this._currentCharacter.Skills.Where(_ => _.CurrentCooldown == 0).ToArray();
+                    this._currentCharacter.SelectedSkill = sa[Random.Range(0, sa.Length)];
 
                     OnCharacterSelected(this._charactersInBattle.First(_ => _.Side == Side.Player), true);
                 }
