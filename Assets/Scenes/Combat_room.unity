@@ -6086,6 +6086,47 @@ PrefabInstance:
       propertyPath: _combatCamera
       value: 
       objectReference: {fileID: 1844034890}
+    - target: {fileID: 1296648375031429094, guid: c2ec5e8330583974bbd93dd97cd23498,
+        type: 3}
+      propertyPath: _battles.Array.data[1].Enemies.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1296648375031429094, guid: c2ec5e8330583974bbd93dd97cd23498,
+        type: 3}
+      propertyPath: _battles.Array.data[0].Enemies.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6c7ecb7483a14a444ab832c79bd1b2e5,
+        type: 2}
+    - target: {fileID: 1296648375031429094, guid: c2ec5e8330583974bbd93dd97cd23498,
+        type: 3}
+      propertyPath: _battles.Array.data[0].Enemies.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 12080a24499b2944185038b3c4b5ee30,
+        type: 2}
+    - target: {fileID: 1296648375031429094, guid: c2ec5e8330583974bbd93dd97cd23498,
+        type: 3}
+      propertyPath: _battles.Array.data[0].Enemies.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 264b25a5dc3da9945a1dcb3756b957b1,
+        type: 2}
+    - target: {fileID: 1296648375031429094, guid: c2ec5e8330583974bbd93dd97cd23498,
+        type: 3}
+      propertyPath: _battles.Array.data[1].Enemies.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: bb9174fe4eb191e4db0350d6a8315f1e,
+        type: 2}
+    - target: {fileID: 1296648375031429094, guid: c2ec5e8330583974bbd93dd97cd23498,
+        type: 3}
+      propertyPath: _battles.Array.data[1].Enemies.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: c324e6402ca720c44890008cd78c756a,
+        type: 2}
+    - target: {fileID: 1296648375031429094, guid: c2ec5e8330583974bbd93dd97cd23498,
+        type: 3}
+      propertyPath: _battles.Array.data[1].Enemies.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 61409c6172eef454e9502b7fc80b61d1,
+        type: 2}
     - target: {fileID: 1296648375031429095, guid: c2ec5e8330583974bbd93dd97cd23498,
         type: 3}
       propertyPath: m_Name
