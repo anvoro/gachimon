@@ -1285,9 +1285,9 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: aebb9c750511e4e41953409af271d617, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1381,7 +1381,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 63bccabf13984b5409f56fa064bdf540, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -6279,6 +6279,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1296648375031429094, guid: c2ec5e8330583974bbd93dd97cd23498,
+        type: 3}
+      propertyPath: _audioSource
+      value: 
+      objectReference: {fileID: 1844395301}
     - target: {fileID: 1296648375031429094, guid: c2ec5e8330583974bbd93dd97cd23498,
         type: 3}
       propertyPath: _combatCamera

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,6 +39,29 @@ namespace Assets.Scripts.View
         private void InitializeManager()
         {
             CanvasGroup.alpha = 0;
+
+            this.CanvasGroup.gameObject.SetActive(false);
+        }
+
+        public void GoFade()
+        {
+            StartCoroutine(this.Fade());
+        }
+
+        private IEnumerator Fade()
+        {
+            this.CanvasGroup.gameObject.SetActive(true);
+
+            float elapsedTime = 0f;
+
+            while (elapsedTime < 1f)
+            {
+                elapsedTime += Time.deltaTime;
+                CanvasGroup.alpha = elapsedTime;
+                yield return null;
+            }
+
+            //CanvasGroup.alpha = 0;
 
             this.CanvasGroup.gameObject.SetActive(false);
         }
