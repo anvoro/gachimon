@@ -14,6 +14,8 @@ namespace Assets.Scripts.DAO
     [CreateAssetMenu]
     public class SkillInfo : ScriptableObject
     {
+        public AudioClip AudioClip;
+
         public Sprite Sprite;
         public AnimationType AnimationType;
 

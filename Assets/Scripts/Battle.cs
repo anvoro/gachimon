@@ -125,6 +125,12 @@ namespace Assets.Scripts
 
                 this._currentCharacter.SelectedSkill.Cast(this._currentCharacter, target, this._charactersInBattle.Where(_ => _.Side == target.Side).ToList());
 
+                if (this._currentCharacter.SelectedSkill.AudioClip != null)
+                {
+                    this._audioSource.clip = this._currentCharacter.SelectedSkill.AudioClip;
+                    this._audioSource.Play();
+                }
+
                 this._viewByModel[this._currentCharacter].PlayAnimation(this._currentCharacter.SelectedSkill.AnimationType)
                     .Done(() =>
                     {
@@ -134,6 +140,8 @@ namespace Assets.Scripts
                     });
             }
         }
+
+        [SerializeField] private AudioSource _audioSource;
 
         private void BeginRound()
         {
