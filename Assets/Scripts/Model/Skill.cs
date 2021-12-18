@@ -9,6 +9,8 @@ namespace Assets.Scripts
 {
     public class Skill
     {
+        public AudioClip AudioClip;
+
         public Sprite Sprite { get; private set; }
 
         public AnimationType AnimationType { get; private set; }
@@ -31,6 +33,8 @@ namespace Assets.Scripts
 
         public Skill(SkillInfo info)
         {
+            this.AudioClip = info.AudioClip;
+
             this.Sprite = info.Sprite;
             this.AnimationType = info.AnimationType;
 
