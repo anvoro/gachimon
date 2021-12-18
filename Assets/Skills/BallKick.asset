@@ -16,7 +16,8 @@ MonoBehaviour:
   Sprite: {fileID: 21300000, guid: 6485c08ecb7d73c4fb6671d29ad6e2d1, type: 3}
   AnimationType: 1
   SkillType: 0
-  Status: []
+  Status:
+  - {fileID: 11400000, guid: 12a9f78fab0950f4c9097cb4aef03fa7, type: 2}
   Cooldown: 1
   DamageValue: 25
   Defense: 5
