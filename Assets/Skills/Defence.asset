@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Defence
   m_EditorClassIdentifier: 
   Sprite: {fileID: 21300000, guid: 84dfc51c68e4e8040a3547a0634a2e16, type: 3}
-  AnimationType: 1
+  AnimationType: 2
   SkillType: 1
+  Status: []
   DamageValue: 15
   AoeMultiplier: 0
   Defense: 5

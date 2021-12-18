@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AttackDOT
   m_EditorClassIdentifier: 
   Sprite: {fileID: 21300000, guid: 0a86e425796170e49b6148c6ac6ed978, type: 3}
-  AnimationType: 0
+  AnimationType: 1
   SkillType: 0
   Status:
   - {fileID: 11400000, guid: 940db5498103af441a5cfd00d1583369, type: 2}

@@ -35,8 +35,12 @@ namespace Assets.Scripts
         {
             switch (animation)
             {
-                case AnimationType.Attack:
-                    this._animator.SetTrigger("Attack");
+                case AnimationType.Attack1:
+                    this._animator.SetTrigger("Attack1");
+                    break;
+
+                case AnimationType.Attack2:
+                    this._animator.SetTrigger("Attack2");
                     break;
 
                 case AnimationType.Defense:
@@ -70,7 +74,7 @@ namespace Assets.Scripts
 
             this._model.OnActiveStateChange += value =>
             {
-                this._animator.SetBool("Stuned", value < 0);
+                this._animator.SetBool("Stunned", value < 0);
             };
         }
 

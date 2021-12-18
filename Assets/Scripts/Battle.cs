@@ -24,7 +24,7 @@ namespace Assets.Scripts
 
         public static IPromise WaitWithDelay(float duration)
         {
-            return PromiseTimer.WaitFor(duration).Then(() => PromiseTimer.WaitFor(.2f));
+            return PromiseTimer.WaitFor(duration).Then(() => PromiseTimer.WaitFor(.01f));
         }
 
         public static bool IsBusy { get; private set; }
