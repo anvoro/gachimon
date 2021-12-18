@@ -1,16 +1,19 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.DAO;
 using Assets.Scripts.Model;
 using Assets.Scripts.View;
 using RSG;
 using UnityEngine;
-using UnityEngine.UI;
 using CharacterInfo = Assets.Scripts.DAO.CharacterInfo;
 
 namespace Assets.Scripts
 {
+    public enum BattlePhase
+    {
+        TurnBegin = 0,
+        TurnEnd = 1,    
+    }
+
     public class Battle : MonoBehaviour
     {
         public static readonly IPromiseTimer PromiseTimer = new PromiseTimer();
@@ -101,29 +104,15 @@ namespace Assets.Scripts
 
                 IsBusy = true;
 
-                this._currentCharacter.SelectedSkill.Cast(this._currentCharacter, target);
+                this._currentCharacter.SelectedSkill.Cast(this._currentCharacter, target, this._charactersInBattle.Where(_ => _.Side == target.Side).ToList());
 
                 this._viewByModel[this._currentCharacter].PlayAnimation(this._currentCharacter.SelectedSkill.AnimationType)
                     .Done(() =>
                     {
-                        this.EndRound();
+                        this.EndTurn();
 
                         IsBusy = false;
                     });
-            }
-        }
-
-        private void EndRound()
-        {
-            this._currentCharacter.Clear();
-
-            if (this._characterActionQueue.Count > 0)
-            {
-                this.BeginTurn();
-            }
-            else
-            {
-                this.BeginRound();
             }
         }
 
@@ -139,19 +128,49 @@ namespace Assets.Scripts
 
         private void BeginTurn()
         {
-            if (this._currentCharacter != null)
+            this._currentCharacter = this._characterActionQueue.Dequeue();
+
+            foreach (Status status in this._currentCharacter.StatusList)
             {
-                this._viewByModel[this._currentCharacter].ActivateTurnMark = false;
+                status.Action.Invoke(this._currentCharacter, BattlePhase.TurnBegin);
+            }
+            //todo death check!!!
+
+            foreach (Status status in this._currentCharacter.StatusList)
+            {
+                if (status.Duration > 0)
+                    status.Duration--;
             }
 
-            this._currentCharacter = this._characterActionQueue.Dequeue();
+            this._currentCharacter.StatusList.RemoveAll(_ => _.Duration == 0);
+
+            this._currentCharacter.Clear();
 
             this._viewByModel[this._currentCharacter].ActivateTurnMark = true;
 
             this.SkillsPanel.Init(this._currentCharacter);
 
-            if(this._currentCharacter.IsActive == false)
-                this.EndRound();
+            if(this._currentCharacter.IsActive < 0)
+                this.EndTurn();
+        }
+
+        private void EndTurn()
+        {
+            foreach (Status status in this._currentCharacter.StatusList)
+            {
+                status.Action.Invoke(this._currentCharacter, BattlePhase.TurnEnd);
+            }
+
+            this._viewByModel[this._currentCharacter].ActivateTurnMark = false;
+
+            if (this._characterActionQueue.Count > 0)
+            {
+                this.BeginTurn();
+            }
+            else
+            {
+                this.BeginRound();
+            }
         }
     }
 }

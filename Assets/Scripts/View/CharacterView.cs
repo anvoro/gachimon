@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Assets.Scripts.DAO;
 using Assets.Scripts.Model;
+using Assets.Scripts.View;
 using RSG;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -60,7 +61,17 @@ namespace Assets.Scripts
             this._combatPanel = CharacterCombatPanel.Instantiate(this._healthBarTransform, parent, camera);
             this._combatPanel.SetHealthBar(this._model, true);
 
-            this._model.OnHealthChange += () => this._combatPanel.SetHealthBar(this._model, false);
+            this._model.OnHealthChange += value =>
+            {
+                this._combatPanel.SetHealthBar(this._model, false);
+                HealthPopup.Instantiate(this._healthBarTransform.position + new Vector3(0, .5f, 0), value.ToString(), Color.red,
+                    Color.black);
+            };
+
+            this._model.OnActiveStateChange += value =>
+            {
+                this._animator.SetBool("Stuned", value < 0);
+            };
         }
 
         private void OnMouseDown()
