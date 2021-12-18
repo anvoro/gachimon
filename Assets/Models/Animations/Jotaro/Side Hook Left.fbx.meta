@@ -1,17 +1,17 @@
 fileFormatVersion: 2
-guid: 10298ae6f3735a047a48a2739a5db367
+guid: 26bcbbeb1db72e440b1119f8214b058c
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable:
   - first:
-      74: -203655887218126122
-    second: mixamo.com
+      74: -4791504522942941401
+    second: Armature|Armature|mixamo.com|Layer0
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: lambert1
-    second: {fileID: 2100000, guid: d47d0fd999d59814781923ccb81afeca, type: 2}
+      name: No Name
+    second: {fileID: 2100000, guid: 053d7c1c8404139489575021948cebab, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -98,7 +98,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 0
   additionalBone: 0
   userData: 
   assetBundleName: 
