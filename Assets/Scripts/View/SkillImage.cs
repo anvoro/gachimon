@@ -1,4 +1,5 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -10,6 +11,8 @@ namespace Assets.Scripts.View
         private static event Action<SkillImage> OnSelected;
 
         [SerializeField] private Image _image;
+
+        [SerializeField] private TMP_Text _cooldown;
 
         private Skill _skill;
 
@@ -42,10 +45,23 @@ namespace Assets.Scripts.View
             this.gameObject.SetActive(true);
 
             this._skill = skill;
+
+            if (this._skill.CurrentCooldown > 0)
+            {
+                _cooldown.gameObject.SetActive(true);
+                this._cooldown.text = this._skill.CurrentCooldown.ToString();
+            }
+            else
+            {
+                _cooldown.gameObject.SetActive(false);
+            }
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
+            if(this._skill.CurrentCooldown > 0)
+                return;
+
             OnSelected?.Invoke(this);
 
             this.OnClick?.Invoke(this._skill);

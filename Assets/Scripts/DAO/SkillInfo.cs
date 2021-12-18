@@ -21,6 +21,8 @@ namespace Assets.Scripts.DAO
 
         public List<StatusInfoBase> Status;
 
+        public int Cooldown;
+
         [Header("Damage")]
         public int DamageValue;
 

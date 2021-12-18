@@ -25,6 +25,10 @@ namespace Assets.Scripts
 
         private List<StatusInfoBase> _status;
 
+        private int _cooldown;
+
+        public int CurrentCooldown { get; set; }
+
         public Skill(SkillInfo info)
         {
             this.Sprite = info.Sprite;
@@ -38,6 +42,13 @@ namespace Assets.Scripts
             this._heal = info.Heal;
 
             this._isStun = info.IsStun;
+
+            if(info.Cooldown > 0)
+                this._cooldown = info.Cooldown + 1;
+            else
+            {
+                this._cooldown = 0;
+            }
 
             this._status = info.Status.ToList();
         }
@@ -61,6 +72,8 @@ namespace Assets.Scripts
 
         public void Cast(CharacterModel caster, CharacterModel target, List<CharacterModel> targets)
         {
+            this.CurrentCooldown = this._cooldown;
+
             foreach (StatusInfoBase statusInfo in this._status)
             {
                 Status existingStatus = target.GetStatus(statusInfo.name);

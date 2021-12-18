@@ -168,6 +168,14 @@ namespace Assets.Scripts
             {
                 this._currentCharacter = this._characterActionQueue.Dequeue();
 
+                foreach (Skill currentCharacterSkill in this._currentCharacter.Skills)
+                {
+                    if(currentCharacterSkill.CurrentCooldown > 0)
+                        currentCharacterSkill.CurrentCooldown--;
+                }
+
+                this._currentCharacter.SelectedSkill = this._currentCharacter.Skills.First(_ => _.CurrentCooldown == 0);
+
                 if (this._currentCharacter.CurrentHealth > 0)
                 {
                     foreach (Status status in this._currentCharacter.StatusList)

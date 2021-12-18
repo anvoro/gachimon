@@ -16,8 +16,8 @@ MonoBehaviour:
   AnimationType: 1
   SkillType: 0
   Status: []
+  Cooldown: 1
   DamageValue: 25
-  AoeMultiplier: 0
   Defense: 5
   Heal: 20
   IsStun: 1

@@ -40,7 +40,7 @@ namespace Assets.Scripts.Model
 
         public Skill SelectedSkill { get; set; }
 
-        public List<Skill> Skills => this._skills.ToList();
+        public List<Skill> Skills => this._skills;
 
         public event Action<int> OnActiveStateChange;
         public int IsActive
