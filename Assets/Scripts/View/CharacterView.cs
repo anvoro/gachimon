@@ -48,13 +48,15 @@ namespace Assets.Scripts
                     this._animator.SetTrigger("Defense");
                     break;
 
+                case AnimationType.Block:
+                    this._animator.SetTrigger("Block");
+                    break;
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(animation), animation, null);
             }
 
-            float length = this._animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
-
-            return Battle.WaitWithDelay(length);
+            return Battle.WaitWithDelay(2f);
         }
 
         public void Init(CharacterModel model, RectTransform parent, Camera camera)

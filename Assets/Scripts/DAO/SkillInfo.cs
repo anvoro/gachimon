@@ -7,6 +7,7 @@ namespace Assets.Scripts.DAO
     {
         Damage = 0,
         SelfDefense = 1,
+        Heal = 2,
     }
 
     [CreateAssetMenu]
@@ -25,6 +26,9 @@ namespace Assets.Scripts.DAO
 
         [Header("Defense")]
         public int Defense = 5;
+
+        [Header("Heal")]
+        public int Heal = 20;
 
         [Header("Stun")]
         public int IsStun;

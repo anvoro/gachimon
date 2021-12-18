@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.DAO;
 using Assets.Scripts.Model;
 using Assets.Scripts.View;
 using RSG;
@@ -123,12 +124,23 @@ namespace Assets.Scripts
 
         private void BeginRound()
         {
-            foreach (CharacterModel c in this._charactersInBattle.OrderBy(_ => _.Initiative))
+            if (this._charactersInBattle.Count(_ => _.Side == Side.Enemy) == 0)
             {
-                this._characterActionQueue.Enqueue(c);
+                Debug.Log("GO TO NEXT BATTLE");
             }
+            else if(this._charactersInBattle.Count(_ => _.Side == Side.Player) == 0)
+            {
+                Debug.Log("GAME OVER");
+            }
+            else
+            {
+                foreach (CharacterModel c in this._charactersInBattle.OrderBy(_ => _.Initiative))
+                {
+                    this._characterActionQueue.Enqueue(c);
+                }
 
-            this.BeginTurn();
+                this.BeginTurn();
+            }
         }
 
         private void BeginTurn()

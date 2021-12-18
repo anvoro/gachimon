@@ -20,6 +20,8 @@ namespace Assets.Scripts
 
         private int _defense;
 
+        private int _heal;
+
         private int _isStun;
 
         private List<StatusInfoBase> _status;
@@ -35,6 +37,8 @@ namespace Assets.Scripts
 
             this._defense = info.Defense;
 
+            this._heal = info.Heal;
+
             this._isStun = info.IsStun;
 
             this._status = info.Status.ToList();
@@ -47,6 +51,7 @@ namespace Assets.Scripts
                 case SkillType.Damage:
                     return caster.Side != target.Side;
 
+                case SkillType.Heal:
                 case SkillType.SelfDefense:
                     return caster.Side == target.Side;
 
@@ -88,6 +93,10 @@ namespace Assets.Scripts
 
                 case SkillType.SelfDefense:
                     caster.Defense += this._defense;
+                    break;
+
+                case SkillType.Heal:
+                    target.CurrentHealth += this._heal;
                     break;
 
                 default:
