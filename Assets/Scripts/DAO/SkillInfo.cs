@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.DAO
@@ -21,6 +17,8 @@ namespace Assets.Scripts.DAO
 
         public SkillType SkillType;
 
+        public List<StatusInfoBase> Status;
+
         [Header("Damage")]
         public int DamageValue;
         public int AoeMultiplier;
@@ -29,6 +27,6 @@ namespace Assets.Scripts.DAO
         public int Defense = 5;
 
         [Header("Stun")]
-        public bool IsStun;
+        public int IsStun;
     }
 }
